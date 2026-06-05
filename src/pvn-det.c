@@ -118,11 +118,11 @@ int main(int argc, char *argv[])
   f = pvn_time_mono_ns();
   u = 0;
   for (size_t i = 0u; i < n; ++i) {
-    (void)mpfr_set_d(ma, a[i], MPFR_RNDN);
-    (void)mpfr_set_d(mb, b[i], MPFR_RNDN);
-    (void)mpfr_set_d(mc, c[i], MPFR_RNDN);
-    (void)mpfr_set_d(md, d[i], MPFR_RNDN);
-    (void)mpfr_set_d(mx, x[i], MPFR_RNDN);
+    (void)mpfr_set_flt(ma, a[i], MPFR_RNDN);
+    (void)mpfr_set_flt(mb, b[i], MPFR_RNDN);
+    (void)mpfr_set_flt(mc, c[i], MPFR_RNDN);
+    (void)mpfr_set_flt(md, d[i], MPFR_RNDN);
+    (void)mpfr_set_flt(mx, x[i], MPFR_RNDN);
     (void)mpfr_mul_2si(mx, mx, t[i], MPFR_RNDN);
     (void)mpfr_fmms(mr, ma, md, mb, mc, MPFR_RNDN);
     (void)mpfr_sub(mx, mr, mx, MPFR_RNDN);
