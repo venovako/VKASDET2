@@ -196,5 +196,5 @@ int main(int argc, char *argv[])
   free(c);
   free(b);
   free(a);
-  if (u ? EXIT_FAILURE : EXIT_SUCCESS);
+  return (u ? EXIT_FAILURE : EXIT_SUCCESS);
 }
