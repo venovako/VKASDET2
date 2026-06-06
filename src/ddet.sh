@@ -1,6 +1,6 @@
 #!/bin/bash
 # Usage: ./ddet.sh RUNS
-echo '"RUN", "N", "GENns", "DDETns", "RELERRns", "INFS", "MINRELERReps", "MAXRELERReps", "ZDETns", "ERR"' > ddet.csv
+echo '"RUN", "N", "ddetns", "infs", "DDETns", "INFS", "MINRELERReps", "MAXRELERReps", "ZDETns", "ERR"' > ddet.csv
 for ((R=1;R<=$1;++R))
 do
 	printf '%2d, ' $R >> ddet.csv
