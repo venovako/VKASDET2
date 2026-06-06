@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
   u = PVN_FABI(pvn_ran_close,PVN_RAN_CLOSE)(&u);
   long long f = pvn_time_mono_ns();
   for (size_t i = 0u; i < n; ++i)
-    r[i] = pvn_sdet((a + i), (b + i), (c + i), (d + i));
+    r[i] = pvn_sdet(a[i], b[i], c[i], d[i]);
   f = pvn_time_mono_ns() - f;
   (void)printf("%lld, ", f);
   (void)fflush(stdout);
