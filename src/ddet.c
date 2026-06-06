@@ -1,7 +1,12 @@
 #include "pvn.h"
 
-/* noipa to account for the function calls, just as with PVN_DDET and PVN_ZDET */
-__attribute__((noipa)) double fn_ddet(const double a, const double b, const double c, const double d)
+/* noinline to account for the function calls, just as with PVN_DDET and PVN_ZDET */
+#if (defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER))
+__attribute__((noinline))
+#else /* GCC */
+__attribute__((noipa))
+#endif /* ?Intel */
+double fn_ddet(const double a, const double b, const double c, const double d)
 {
   return pvn_ddet(a, b, c, d);
 }
