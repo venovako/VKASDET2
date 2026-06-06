@@ -1,7 +1,7 @@
 #include "pvn.h"
 
-/* noinline to account for the function calls, just as with PVN_SDET and PVN_ZDETF */
-[[noinline]] static float fn_sdet(const float a, const float b, const float c, const float d)
+/* noipa to account for the function calls, just as with PVN_SDET and PVN_ZDETF */
+__attribute__((noipa)) float fn_sdet(const float a, const float b, const float c, const float d)
 {
   return pvn_sdet(a, b, c, d);
 }

@@ -1,7 +1,7 @@
 #include "pvn.h"
 
-/* noinline to account for the function calls, just as with PVN_DDET and PVN_ZDET */
-[[noinline]] static double fn_ddet(const double a, const double b, const double c, const double d)
+/* noipa to account for the function calls, just as with PVN_DDET and PVN_ZDET */
+__attribute__((noipa)) double fn_ddet(const double a, const double b, const double c, const double d)
 {
   return pvn_ddet(a, b, c, d);
 }
