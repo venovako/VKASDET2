@@ -1,5 +1,11 @@
 #include "pvn.h"
 
+/* noinline to account for the function calls, just as with PVN_SDET and PVN_ZDETF */
+[[noinline]] static float fn_sdet(const float a, const float b, const float c, const float d)
+{
+  return pvn_sdet(a, b, c, d);
+}
+
 int main(int argc, char *argv[])
 {
   if ((argc != 2) && (argc != 3)) {
@@ -89,7 +95,7 @@ int main(int argc, char *argv[])
   u = PVN_FABI(pvn_ran_close,PVN_RAN_CLOSE)(&u);
   long long f = pvn_time_mono_ns();
   for (size_t i = 0u; i < n; ++i)
-    r[i] = pvn_sdet(a[i], b[i], c[i], d[i]);
+    r[i] = fn_sdet(a[i], b[i], c[i], d[i]);
   f = pvn_time_mono_ns() - f;
   (void)printf("%lld, ", f);
   (void)fflush(stdout);
