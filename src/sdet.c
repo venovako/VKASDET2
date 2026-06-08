@@ -132,12 +132,26 @@ int main(int argc, char *argv[])
     (void)mpfr_mul_2si(mx, mx, t[i], MPFR_RNDN);
     (void)mpfr_fmms(mr, ma, md, mb, mc, MPFR_RNDN);
     (void)mpfr_sub(mx, mr, mx, MPFR_RNDN);
+    (void)mpfr_mul_d(mr, mr, g, MPFR_RNDN);
     (void)mpfr_div(mx, mx, mr, MPFR_RNDN);
     (void)mpfr_abs(mx, mx, MPFR_RNDN);
-    (void)mpfr_div_d(mx, mx, g, MPFR_RNDN);
     y[i] = mpfr_get_flt(mx, MPFR_RNDN);
-    e = __builtin_fminf(e, y[i]);
-    E = __builtin_fmaxf(E, y[i]);
+    /* if the computed result is zero, and the exact is not, the relative error is 1, i.e., y=1/ε */
+    if (!(y[i] < 3.0f)) {
+      (void)fprintf(stderr, "a=%s\n", pvn_stoa(s, a[i]));
+      (void)fprintf(stderr, "b=%s\n", pvn_stoa(s, b[i]));
+      (void)fprintf(stderr, "c=%s\n", pvn_stoa(s, c[i]));
+      (void)fprintf(stderr, "d=%s\n", pvn_stoa(s, d[i]));
+      (void)fprintf(stderr, "x=%s\n", pvn_stoa(s, x[i]));
+      (void)fprintf(stderr, "t=%d\n", t[i]);
+      (void)fprintf(stderr, "r=%s\n", pvn_stoa(s, r[i]));
+      (void)fprintf(stderr, "y=%s\n\n", pvn_stoa(s, y[i]));
+      (void)fflush(stderr);
+    }
+    else {
+      e = __builtin_fminf(e, y[i]);
+      E = __builtin_fmaxf(E, y[i]);
+    }
   }
   mpfr_clear(mx);
   mpfr_clear(mr);
