@@ -136,16 +136,15 @@ int main(int argc, char *argv[])
     (void)mpfr_div(mx, mx, mr, MPFR_RNDN);
     (void)mpfr_abs(mx, mx, MPFR_RNDN);
     y[i] = mpfr_get_d(mx, MPFR_RNDN);
-    /* if the computed result is zero, and the exact is not, the relative error is 1, i.e., y=1/ε */
     if (!(y[i] < 3.0)) {
-      (void)fprintf(stderr, "a=%s\n", pvn_dtoa(s, a[i]));
-      (void)fprintf(stderr, "b=%s\n", pvn_dtoa(s, b[i]));
-      (void)fprintf(stderr, "c=%s\n", pvn_dtoa(s, c[i]));
-      (void)fprintf(stderr, "d=%s\n", pvn_dtoa(s, d[i]));
-      (void)fprintf(stderr, "x=%s\n", pvn_dtoa(s, x[i]));
+      (void)fprintf(stderr, "a=%s %# a\n", pvn_dtoa(s, a[i]), a[i]);
+      (void)fprintf(stderr, "b=%s %# a\n", pvn_dtoa(s, b[i]), b[i]);
+      (void)fprintf(stderr, "c=%s %# a\n", pvn_dtoa(s, c[i]), c[i]);
+      (void)fprintf(stderr, "d=%s %# a\n", pvn_dtoa(s, d[i]), d[i]);
+      (void)fprintf(stderr, "x=%s %# a\n", pvn_dtoa(s, x[i]), x[i]);
       (void)fprintf(stderr, "t=%d\n", t[i]);
-      (void)fprintf(stderr, "r=%s\n", pvn_dtoa(s, r[i]));
-      (void)fprintf(stderr, "y=%s\n\n", pvn_dtoa(s, y[i]));
+      (void)fprintf(stderr, "r=%s %# a\n", pvn_dtoa(s, r[i]), r[i]);
+      (void)fprintf(stderr, "y=%s %# a\n\n", pvn_dtoa(s, y[i]), y[i]);
       (void)fflush(stderr);
     }
     else {
