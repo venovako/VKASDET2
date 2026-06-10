@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
   const char T = toupper(*(argv[1]));
   char s[46] = { '\0' };
   do {
-    if (scanf(" %s") <= 0)
+    if (scanf(" %s", s) <= 0)
       break;
     else if (T == 'S')
       (void)printf("%# a\n", pvn_atos(s));
