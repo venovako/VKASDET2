@@ -22,9 +22,6 @@ help:
 %.exe : %.c
 	$(CC) $(CFLAGS) -DVKASDET2_TEST="\"dynamic_exe\"" $< -o $@ $(LDFLAGS)
 
-bf.exe : bf.c
-	$(CC) $(CFLAGS) -frounding-math -DVKASDET2_TEST="\"dynamic_exe\"" $< -o $@ $(LDFLAGS)
-
 clean:
 	-$(RM) $(EXES)
 	-$(RM) *.optrpt
