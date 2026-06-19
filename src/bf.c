@@ -7,14 +7,17 @@
 
 #include "pvn.h"
 
+static float a;
+
 static void a2()
 {
-  const float a = nextafterf(1.0f, 0.0f);
-  (void)printf("%#a\n", (a * a));
+  const float a2 = (a * a);
+  (void)printf("%#a\n", a2);
 }
 
 int main()
 {
+  a = nextafterf(1.0f, 0.0f);
   if (fesetround(FE_DOWNWARD))
     return EXIT_FAILURE;
   a2();
