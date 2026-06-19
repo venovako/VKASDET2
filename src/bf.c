@@ -25,20 +25,21 @@ int main(int argc, char* argv[])
   }
   ad = 0x1.fffffffffffffp-1;
   af = 0x1.fffffep-1f;
-  (void)printf("predecessor(1): %#a %#a\n", ad, af);
-  (void)printf("sqr(pred(1))  :               DOUBLE        SINGLE\n");
+  (void)printf("predecessor(1) : %#a %#a\n", ad, af);
+  if (fegetround() < 0)
+    return EXIT_FAILURE;
+  (void)printf("square(pred(1)):               DOUBLE        SINGLE\n");
   if (fesetround(FE_TONEAREST))
     return EXIT_FAILURE;
-  (void)printf("FE_TONEAREST  : ");
+  (void)printf("FE_TONEAREST   : ");
   a2();
-  /* here, TOWARDZERO has the same effect as DOWNWARD */
-  if (fesetround(FE_TOWARDZERO))
+  if (fesetround(FE_DOWNWARD))
     return EXIT_FAILURE;
-  (void)printf("FE_TOWARDZERO : ");
+  (void)printf("FE_DOWNWARD    : ");
   a2();
   if (fesetround(FE_UPWARD))
     return EXIT_FAILURE;
-  (void)printf("FE_UPWARD     : ");
+  (void)printf("FE_UPWARD      : ");
   a2();
   return EXIT_SUCCESS;
 }
