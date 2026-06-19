@@ -9,7 +9,7 @@ CC=$(PVN_CC)
 CFLAGS=$(PVN_CFLAGS) $(PVN_CPPFLAGS)
 LDFLAGS=$(PVN_LDFLAGS) $(PVN_LIBS)
 
-SRCS=afmt.c ddet.c sdet.c
+SRCS=afmt.c bf.c ddet.c sdet.c
 EXES=$(SRCS:.c=.exe)
 
 .PHONY: all help clean
@@ -21,6 +21,9 @@ help:
 
 %.exe : %.c
 	$(CC) $(CFLAGS) -DVKASDET2_TEST="\"dynamic_exe\"" $< -o $@ $(LDFLAGS)
+
+bf.exe : bf.c
+	$(CC) $(CFLAGS) -frounding-math -DVKASDET2_TEST="\"dynamic_exe\"" $< -o $@ $(LDFLAGS)
 
 clean:
 	-$(RM) $(EXES)
