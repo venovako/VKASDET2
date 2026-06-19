@@ -26,6 +26,7 @@ int main(int argc, char* argv[])
   ad = 0x1.fffffffffffffp-1;
   af = 0x1.fffffep-1f;
   (void)printf("predecessor(1): %#a %#a\n", ad, af);
+  (void)printf("sqr(pred(1))  :               DOUBLE        SINGLE\n");
   if (fesetround(FE_TONEAREST))
     return EXIT_FAILURE;
   (void)printf("FE_TONEAREST  : ");
