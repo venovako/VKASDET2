@@ -23,8 +23,8 @@ int main(int argc, char* argv[])
     (void)fprintf(stderr, "%s takes no arguments\n", *argv);
     return EXIT_FAILURE;
   }
-  ad = nextafter(1.0, 0.0);
-  af = nextafterf(1.0f, 0.0f);
+  ad = 0x1.fffffffffffffp-1;
+  af = 0x1.fffffep-1f;
   (void)printf("predecessor(1): %#a %#a\n", ad, af);
   if (fesetround(FE_TONEAREST))
     return EXIT_FAILURE;
