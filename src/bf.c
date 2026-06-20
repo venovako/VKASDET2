@@ -27,23 +27,22 @@ int main(int argc, char* argv[])
     (void)fprintf(stderr, "%s takes no arguments\n", *argv);
     return EXIT_FAILURE;
   }
-  ad = 0x1.fffffffffffffp-1;
-  af = 0x1.fffffep-1f;
-  (void)printf("predecessor(1) : %#a %#a\n", ad, af);
   if (fegetround() < 0)
     return EXIT_FAILURE;
-  (void)printf("square(pred(1)):               DOUBLE        SINGLE\n");
+  ad = 0x1.fffffffffffffp-1;
+  af = 0x1.fffffep-1f;
+  (void)printf("predecessor(1): %#a %#a\n", ad, af);
+  (void)printf("FE_TONEAREST  : ");
   if (fesetround(FE_TONEAREST))
     return EXIT_FAILURE;
-  (void)printf("FE_TONEAREST   : ");
   a2();
+  (void)printf("FE_DOWNWARD   : ");
   if (fesetround(FE_DOWNWARD))
     return EXIT_FAILURE;
-  (void)printf("FE_DOWNWARD    : ");
   a2();
+  (void)printf("FE_UPWARD     : ");
   if (fesetround(FE_UPWARD))
     return EXIT_FAILURE;
-  (void)printf("FE_UPWARD      : ");
   a2();
   return EXIT_SUCCESS;
 }
