@@ -13,8 +13,12 @@ static void a2()
 {
   const double a2d = (ad * ad);
   (void)printf("%#a ", a2d);
+  const double e2d = __builtin_fma(-ad, ad, a2d);
+  (void)printf("%#a ", e2d);
   const float a2f = (af * af);
-  (void)printf("%#a\n", a2f);
+  (void)printf("%#a ", a2f);
+  const float e2f = __builtin_fmaf(-af, af, a2f);
+  (void)printf("%#a\n", e2f);
 }
 
 int main(int argc, char* argv[])
