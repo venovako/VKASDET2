@@ -163,11 +163,12 @@ int main(int argc, char *argv[])
   (void)printf("%s, ", pvn_stoa(s, E));
   (void)fflush(stdout);
 #ifdef __AVX512F__
+  u = 0;
   f = pvn_time_mono_ns();
   for (size_t i = 0u; i < n; i += 16u)
-    PVN_FABI(pvn_zdetf,PVN_ZDETF)((const __m512*)(a + i), (const __m512*)(b + i), (const __m512*)(c + i), (const __m512*)(d + i), (__m512*)(z + i), (__m512i*)(v + i), (__m512*)(y + i));
+    u += PVN_FABI(pvn_zdetf,PVN_ZDETF)((const __m512*)(a + i), (const __m512*)(b + i), (const __m512*)(c + i), (const __m512*)(d + i), (__m512*)(z + i), (__m512i*)(v + i), (__m512*)(y + i));
   f = pvn_time_mono_ns() - f;
-  (void)printf("%lld, ", f);
+  (void)printf("%d, %lld, ", u, f);
   (void)fflush(stdout);
   u = 0;
   for (size_t i = 0u; i < n; ++i) {
