@@ -4,6 +4,6 @@ echo '"RUN", "N", "sdetns", "infs", "SDETns", "INFS", "MINRELERReps", "MAXRELERR
 for ((R=1;R<=$1;++R))
 do
 	printf '%2d, ' $R >> sdet.csv
-	./sdet.exe 1073741824 256 >> sdet.csv 2>> sdet.err
+	./sdet.exe 134217728 256 >> sdet.csv 2>> sdet.err
 done
 unset R
