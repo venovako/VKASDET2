@@ -54,9 +54,9 @@ int main(int argc, char *argv[])
   float *x = (float*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&x, PVN_VECLEN, m));
   (void)memset(x, 0, m);
-  float *y = (float*)NULL;
-  PVN_SYSI_CALL(u = posix_memalign((void**)&y, PVN_VECLEN, m));
-  (void)memset(y, 0, m);
+  float *h = (float*)NULL;
+  PVN_SYSI_CALL(u = posix_memalign((void**)&h, PVN_VECLEN, m));
+  (void)memset(h, 0, m);
 #ifdef __AVX512F__
   float *z = (float*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&z, PVN_VECLEN, m));
@@ -130,8 +130,8 @@ int main(int argc, char *argv[])
       (void)mpfr_mul_d(mr, mr, g, MPFR_RNDN);
       (void)mpfr_div(mx, mx, mr, MPFR_RNDN);
       (void)mpfr_abs(mx, mx, MPFR_RNDN);
-      y[i] = mpfr_get_flt(mx, MPFR_RNDN);
-      if (!(y[i] < 3.0f)) {
+      h[i] = mpfr_get_flt(mx, MPFR_RNDN);
+      if (!(h[i] < 3.0f)) {
         (void)fprintf(stderr, "a=%s %# a\n", pvn_stoa(s, a[i]), a[i]);
         (void)fprintf(stderr, "b=%s %# a\n", pvn_stoa(s, b[i]), b[i]);
         (void)fprintf(stderr, "c=%s %# a\n", pvn_stoa(s, c[i]), c[i]);
@@ -139,18 +139,18 @@ int main(int argc, char *argv[])
         (void)fprintf(stderr, "x=%s %# a\n", pvn_stoa(s, x[i]), x[i]);
         (void)fprintf(stderr, "t=%d\n", t[i]);
         (void)fprintf(stderr, "r=%s %# a\n", pvn_stoa(s, r[i]), r[i]);
-        (void)fprintf(stderr, "y=%s %# a\n\n", pvn_stoa(s, y[i]), y[i]);
+        (void)fprintf(stderr, "h=%s %# a\n\n", pvn_stoa(s, h[i]), h[i]);
         (void)fflush(stderr);
       }
       else {
-        e = __builtin_fminf(e, y[i]);
-        E = __builtin_fmaxf(E, y[i]);
+        e = __builtin_fminf(e, h[i]);
+        E = __builtin_fmaxf(E, h[i]);
       }
     }
 #ifdef __AVX512F__
     f = pvn_time_mono_ns();
     for (size_t i = 0u; i < n; i += 16u)
-      K[2] += (unsigned)PVN_FABI(pvn_zdetf,PVN_ZDETF)((const __m512*)(a + i), (const __m512*)(b + i), (const __m512*)(c + i), (const __m512*)(d + i), (__m512*)(z + i), (__m512i*)(v + i), (__m512*)(y + i));
+      K[2] += (unsigned)PVN_FABI(pvn_zdetf,PVN_ZDETF)((const __m512*)(a + i), (const __m512*)(b + i), (const __m512*)(c + i), (const __m512*)(d + i), (__m512*)(z + i), (__m512i*)(v + i), (__m512*)(h + i));
     f = pvn_time_mono_ns() - f;
     T[2] += f;
     for (size_t i = 0u; i < n; ++i) {
@@ -165,9 +165,9 @@ int main(int argc, char *argv[])
         ++(K[3]);
         continue;
       }
-      if (r[i] != y[i]) {
+      if (r[i] != h[i]) {
         (void)fprintf(stderr, "r %s ", pvn_stoa(s, r[i]));
-        (void)fprintf(stderr, "y %s\n", pvn_stoa(s, y[i]));
+        (void)fprintf(stderr, "h %s\n", pvn_stoa(s, h[i]));
         ++(K[3]);
         continue;
       }
@@ -192,7 +192,7 @@ int main(int argc, char *argv[])
 #ifdef __AVX512F__
   free(z);
 #endif /* __AVX512F__ */
-  free(y);
+  free(h);
   free(x);
   free(r);
   free(d);
