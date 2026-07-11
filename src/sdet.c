@@ -6,10 +6,31 @@ __attribute__((noinline))
 #else /* GCC */
 __attribute__((noipa))
 #endif /* ?Intel */
-float fn_sdet(const float a, const float b, const float c, const float d)
+float fn1_sdet(const float a, const float b, const float c, const float d)
 {
   return pvn_sdet(a, b, c, d);
 }
+
+#ifdef __AVX512F__
+#if (defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER))
+__attribute__((noinline))
+#else /* GCC */
+__attribute__((noipa))
+#endif /* ?Intel */
+void fn8_sdet(const float *const a, const float *const b, const float *const c, const float *const d, float *const r)
+{
+  _mm256_store_ps(r, pvn_ydetf(_mm256_load_ps(a), _mm256_load_ps(b), _mm256_load_ps(c), _mm256_load_ps(d)));
+}
+#if (defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER))
+__attribute__((noinline))
+#else /* GCC */
+__attribute__((noipa))
+#endif /* ?Intel */
+void fn16_sdet(const float *const a, const float *const b, const float *const c, const float *const d, float *const r)
+{
+  _mm512_store_ps(r, pvn_zdetf(_mm512_load_ps(a), _mm512_load_ps(b), _mm512_load_ps(c), _mm512_load_ps(d)));
+}
+#endif /* __AVX512F__ */
 
 int main(int argc, char *argv[])
 {
@@ -84,7 +105,7 @@ int main(int argc, char *argv[])
   m = ((argc >= 4) ? pvn_atoz(argv[3]) : (size_t)1u);
   (void)printf("%10zu, ", (n * m));
   (void)fflush(stdout);
-  long long T[3] = { 0ll, 0ll, 0ll };
+  long long T[5] = { 0ll, 0ll, 0ll, 0ll, 0ll };
   unsigned K[4] = { 0u, 0u, 0u, 0u };
   for (size_t j = 0u; j < m; ++j) {
     for (size_t i = 0u; i < n; ++i) {
@@ -103,7 +124,7 @@ int main(int argc, char *argv[])
     }
     long long f = pvn_time_mono_ns();
     for (size_t i = 0u; i < n; ++i)
-      r[i] = fn_sdet(a[i], b[i], c[i], d[i]);
+      r[i] = fn1_sdet(a[i], b[i], c[i], d[i]);
     f = pvn_time_mono_ns() - f;
     T[0] += f;
     for (size_t i = 0u; i < n; ++i)
@@ -149,10 +170,20 @@ int main(int argc, char *argv[])
     }
 #ifdef __AVX512F__
     f = pvn_time_mono_ns();
+    for (size_t i = 0u; i < n; i += 8u)
+      fn8_sdet((a + i), (b + i), (c + i), (d + i), (h + i));
+    f = pvn_time_mono_ns() - f;
+    T[2] += f;
+    f = pvn_time_mono_ns();
+    for (size_t i = 0u; i < n; i += 16u)
+      fn16_sdet((a + i), (b + i), (c + i), (d + i), (h + i));
+    f = pvn_time_mono_ns() - f;
+    T[3] += f;
+    f = pvn_time_mono_ns();
     for (size_t i = 0u; i < n; i += 16u)
       K[2] += (unsigned)PVN_FABI(pvn_zdetf,PVN_ZDETF)((const __m512*)(a + i), (const __m512*)(b + i), (const __m512*)(c + i), (const __m512*)(d + i), (__m512*)(z + i), (__m512i*)(v + i), (__m512*)(h + i));
     f = pvn_time_mono_ns() - f;
-    T[2] += f;
+    T[4] += f;
     for (size_t i = 0u; i < n; ++i) {
       if (x[i] != z[i]) {
         (void)fprintf(stderr, "x %s ", pvn_stoa(s, x[i]));
@@ -176,7 +207,7 @@ int main(int argc, char *argv[])
   (void)printf("%lld, %u, %lld, %u,", T[0], K[0], T[1], K[1]);
   (void)printf("%s,", pvn_stoa(s, e));
   (void)printf("%s, ", pvn_stoa(s, E));
-  (void)printf("%u, %lld, %u\n", K[2], T[2], K[3]);
+  (void)printf("%lld, %lld, %lld, %u, %u\n", T[2], T[3], T[4], K[2], K[3]);
   (void)fflush(stdout);
   u = PVN_FABI(pvn_ran_close,PVN_RAN_CLOSE)(&u);
   mpfr_clear(mx);
