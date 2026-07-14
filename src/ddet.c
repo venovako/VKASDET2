@@ -181,7 +181,7 @@ int main(int argc, char *argv[])
     T[3] += f;
     f = pvn_time_mono_ns();
     for (size_t i = 0u; i < n; i += 8u)
-      K[2] += (unsigned)PVN_FABI(pvn_zdet,PVN_ZDET)((const __m512d*)(a + i), (const __m512d*)(b + i), (const __m512d*)(c + i), (const __m512d*)(d + i), (__m512d*)(z + i), (__m256i*)(v + i), (__m512d*)(h + i));
+      K[2] += (unsigned)PVN_FABI(pvn_zdet,PVN_ZDET)((a + i), (b + i), (c + i), (d + i), (z + i), (v + i), (h + i));
     f = pvn_time_mono_ns() - f;
     T[4] += f;
     for (size_t i = 0u; i < n; ++i) {
