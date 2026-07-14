@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
   m = ((argc >= 4) ? pvn_atoz(argv[3]) : (size_t)1u);
   (void)printf("%10zu, ", (n * m));
   (void)fflush(stdout);
-  long long T[5] = { 0ll, 0ll, 0ll, 0ll, 0ll };
+  long long T[6] = { 0ll, 0ll, 0ll, 0ll, 0ll, 0ll };
   unsigned K[4] = { 0u, 0u, 0u, 0u };
   for (size_t j = 0u; j < m; ++j) {
     for (size_t i = 0u; i < n; ++i) {
@@ -184,7 +184,14 @@ int main(int argc, char *argv[])
       K[2] += (unsigned)PVN_FABI(pvn_zdet,PVN_ZDET)((const __m512d*)(a + i), (const __m512d*)(b + i), (const __m512d*)(c + i), (const __m512d*)(d + i), (__m512d*)(z + i), (__m256i*)(v + i), (__m512d*)(h + i));
     f = pvn_time_mono_ns() - f;
     T[4] += f;
+    K[2] = 0u;
+    f = pvn_time_mono_ns();
+    for (size_t i = 0u; i < n; i += 8u)
+      K[2] += (PVN_FABI(pvn_zdeta,PVN_ZDETA)((const __m512d*)(a + i), (const __m512d*)(b + i), (const __m512d*)(c + i), (const __m512d*)(d + i), (__m512d*)(z + i), (__m256i*)(v + i), (__m512d*)(h + i)) < 0);
+    f = pvn_time_mono_ns() - f;
+    T[5] += f;
     for (size_t i = 0u; i < n; ++i) {
+      /*
       if (x[i] != z[i]) {
         (void)fprintf(stderr, "x %s ", pvn_dtoa(s, x[i]));
         (void)fprintf(stderr, "z %s\n", pvn_dtoa(s, z[i]));
@@ -196,6 +203,7 @@ int main(int argc, char *argv[])
         ++(K[3]);
         continue;
       }
+      */
       if (r[i] != h[i]) {
         (void)fprintf(stderr, "r %s ", pvn_dtoa(s, r[i]));
         (void)fprintf(stderr, "h %s\n", pvn_dtoa(s, h[i]));
@@ -207,7 +215,7 @@ int main(int argc, char *argv[])
   (void)printf("%lld, %u, %lld, %u,", T[0], K[0], T[1], K[1]);
   (void)printf("%s,", pvn_dtoa(s, e));
   (void)printf("%s, ", pvn_dtoa(s, E));
-  (void)printf("%lld, %lld, %lld, %u, %u\n", T[2], T[3], T[4], K[2], K[3]);
+  (void)printf("%lld, %lld, %lld, %lld, %u, %u\n", T[2], T[3], T[4], T[5], K[2], K[3]);
   (void)fflush(stdout);
   u = PVN_FABI(pvn_ran_close,PVN_RAN_CLOSE)(&u);
   mpfr_clear(mx);
