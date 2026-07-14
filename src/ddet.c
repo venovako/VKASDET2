@@ -122,18 +122,18 @@ int main(int argc, char *argv[])
         d[i] = PVN_FABI(pvn_ran,PVN_RAN)(&u);
       } while (!__builtin_isfinite(d[i]));
     }
-    long long f = pvn_time_mono_ns();
+    long long f = pvn_time_proc_ns();
     for (size_t i = 0u; i < n; ++i)
       r[i] = fn1_ddet(a[i], b[i], c[i], d[i]);
-    f = pvn_time_mono_ns() - f;
+    f = pvn_time_proc_ns() - f;
     T[0] += f;
     for (size_t i = 0u; i < n; ++i)
       if (!__builtin_isfinite(r[i]))
         ++(K[0]);
-    f = pvn_time_mono_ns();
+    f = pvn_time_proc_ns();
     for (size_t i = 0u; i < n; ++i)
       r[i] = PVN_FABI(pvn_ddet,PVN_DDET)((a + i), (b + i), (c + i), (d + i), (x + i), (t + i));
-    f = pvn_time_mono_ns() - f;
+    f = pvn_time_proc_ns() - f;
     T[1] += f;
     for (size_t i = 0u; i < n; ++i)
       if (!__builtin_isfinite(r[i]))
@@ -169,20 +169,20 @@ int main(int argc, char *argv[])
       }
     }
 #ifdef __AVX512F__
-    f = pvn_time_mono_ns();
+    f = pvn_time_proc_ns();
     for (size_t i = 0u; i < n; i += 4u)
       fn4_ddet((a + i), (b + i), (c + i), (d + i), (h + i));
-    f = pvn_time_mono_ns() - f;
+    f = pvn_time_proc_ns() - f;
     T[2] += f;
-    f = pvn_time_mono_ns();
+    f = pvn_time_proc_ns();
     for (size_t i = 0u; i < n; i += 8u)
       fn8_ddet((a + i), (b + i), (c + i), (d + i), (h + i));
-    f = pvn_time_mono_ns() - f;
+    f = pvn_time_proc_ns() - f;
     T[3] += f;
-    f = pvn_time_mono_ns();
+    f = pvn_time_proc_ns();
     for (size_t i = 0u; i < n; i += 8u)
       K[2] += (unsigned)PVN_FABI(pvn_zdet,PVN_ZDET)((a + i), (b + i), (c + i), (d + i), (z + i), (v + i), (h + i));
-    f = pvn_time_mono_ns() - f;
+    f = pvn_time_proc_ns() - f;
     T[4] += f;
     for (size_t i = 0u; i < n; ++i) {
       if (x[i] != z[i]) {
