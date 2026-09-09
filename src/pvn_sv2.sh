@@ -1,9 +1,9 @@
 #!/bin/bash
-#Usage ./pvn_sv2.sh (tested with openSUSE Tumbleweed's gcc-16)
-echo '"T", "COND2G", "UORTHO1", "VORTHO1", "SVDRES1"' > pvn_sv2.csv
-for T in S D
-do
-	echo -n "\"$T\"," >> pvn_sv2.csv
-	../../libpvn/src/pvn_sv2.exe $T 1073741824 >> pvn_sv2.csv
-done
-unset T
+#Usage ./pvn_sv2.sh
+echo '"COND2G", "UORTHO1", "VORTHO1", "SVDRES1"' > Dsv2.csv
+echo '"COND2G", "UORTHO1", "VORTHO1", "SVDRES1"' > Ssv2.csv
+../../libpvn/src/pvn_sv2.exe D 1073741824 >> Dsv2.csv &
+../../libpvn/src/pvn_sv2.exe S 1073741824 >> Ssv2.csv &
+wait
+sync
+sudo poweroff
