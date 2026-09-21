@@ -131,8 +131,10 @@ int main(int argc, char *argv[])
       if (!__builtin_isfinite(r[i]))
         ++(K[0]);
     f = pvn_time_proc_ns();
-    for (size_t i = 0u; i < n; ++i)
+    for (size_t i = 0u; i < n; ++i) {
+      t[i] = 0;
       r[i] = PVN_FABI(pvn_sdet,PVN_SDET)((a + i), (b + i), (c + i), (d + i), (x + i), (t + i));
+    }
     f = pvn_time_proc_ns() - f;
     T[1] += f;
     for (size_t i = 0u; i < n; ++i)
