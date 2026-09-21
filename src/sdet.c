@@ -203,7 +203,9 @@ int main(int argc, char *argv[])
         continue;
       }
     }
+#endif /* __AVX512F__ */
   }
+#ifdef __AVX512F__
   (void)printf("%lld, %u, %lld, %u,", T[0], K[0], T[1], K[1]);
   (void)printf("%s,", pvn_stoa(s, e));
   (void)printf("%s, ", pvn_stoa(s, E));
