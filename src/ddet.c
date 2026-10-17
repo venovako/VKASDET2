@@ -1,32 +1,25 @@
 #include "pvn.h"
 
 /* noinline to account for the function calls, just as with PVN_DDET and PVN_ZDET */
+#ifndef MY_INLINE
 #if (defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER))
-__attribute__((noinline))
+#define MY_INLINE __attribute__((noinline))
 #else /* GCC */
-__attribute__((noipa))
+#define MY_INLINE __attribute__((noipa))
 #endif /* ?Intel */
-double fn1_ddet(const double a, const double b, const double c, const double d)
+#endif /* !MY_INLINE */
+
+MY_INLINE double fn1_ddet(const double a, const double b, const double c, const double d)
 {
   return pvn_ddet(a, b, c, d);
 }
 
 #ifdef __AVX512F__
-#if (defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER))
-__attribute__((noinline))
-#else /* GCC */
-__attribute__((noipa))
-#endif /* ?Intel */
-void fn4_ddet(const double *const a, const double *const b, const double *const c, const double *const d, double *const r)
+MY_INLINE void fn4_ddet(const double *const a, const double *const b, const double *const c, const double *const d, double *const r)
 {
   _mm256_store_pd(r, pvn_ydet(_mm256_load_pd(a), _mm256_load_pd(b), _mm256_load_pd(c), _mm256_load_pd(d)));
 }
-#if (defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER))
-__attribute__((noinline))
-#else /* GCC */
-__attribute__((noipa))
-#endif /* ?Intel */
-void fn8_ddet(const double *const a, const double *const b, const double *const c, const double *const d, double *const r)
+MY_INLINE void fn8_ddet(const double *const a, const double *const b, const double *const c, const double *const d, double *const r)
 {
   _mm512_store_pd(r, pvn_zdet(_mm512_load_pd(a), _mm512_load_pd(b), _mm512_load_pd(c), _mm512_load_pd(d)));
 }
@@ -205,7 +198,6 @@ int main(int argc, char *argv[])
     }
 #endif /* __AVX512F__ */
   }
-#ifdef __AVX512F__
   (void)printf("%lld, %u, %lld, %u,", T[0], K[0], T[1], K[1]);
   (void)printf("%s,", pvn_dtoa(s, e));
   (void)printf("%s, ", pvn_dtoa(s, E));
@@ -219,6 +211,7 @@ int main(int argc, char *argv[])
   mpfr_clear(mb);
   mpfr_clear(ma);
   u = PVN_FABI(pvn_mpfr_stop,PVN_MPFR_STOP)();
+#ifdef __AVX512F__
   free(v);
 #endif /* __AVX512F__ */
   free(t);
