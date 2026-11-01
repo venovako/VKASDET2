@@ -45,9 +45,9 @@ int main(int argc, char *argv[])
   mpfr_rnd_t rnd = MPFR_RNDN;
   mpfr_exp_t emin = __MPFR_EXP_INVALID, emax = __MPFR_EXP_INVALID;
   mpfr_prec_t prec = ((argc >= 3) ? atol(argv[2]) : 113l);
-  int u = PVN_FABI(pvn_mpfr_start,PVN_MPFR_START)(&rnd, &prec, &emin, &emax);
+  int u = PVN_FABI(pvn_mpc_start,PVN_MPC_START)(&rnd, &prec, &emin, &emax);
   if (u) {
-    (void)fprintf(stderr, "PVN_MPFR_START=%d\n", u);
+    (void)fprintf(stderr, "PVN_MPC_START=%d\n", u);
     return EXIT_FAILURE;
   }
   double *a = (double*)NULL;
@@ -210,7 +210,7 @@ int main(int argc, char *argv[])
   mpfr_clear(mc);
   mpfr_clear(mb);
   mpfr_clear(ma);
-  u = PVN_FABI(pvn_mpfr_stop,PVN_MPFR_STOP)();
+  u = PVN_FABI(pvn_mpc_stop,PVN_MPC_STOP)();
 #ifdef __AVX512F__
   free(v);
 #endif /* __AVX512F__ */
