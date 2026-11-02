@@ -86,6 +86,7 @@ int main(int argc, char *argv[])
       PVN_FABI(pvn_zdivz,PVN_ZDIVZ)((dr + i), (di + i), (ar + i), (ai + i), (br + i), (bi + i));
     T[1] += (f = pvn_time_proc_ns() - f);
     const double g = (DBL_EPSILON * 0.5);
+    (void)printf("\n");
     for (size_t i = 0u; i < n; ++i) {
       (void)printf("(%s,", pvn_dtoa(s, ar[i]));
       (void)printf("%s) ", pvn_dtoa(s, ai[i]));
@@ -140,6 +141,13 @@ int main(int argc, char *argv[])
       (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
       (void)mpfr_div(mn, mn, md, MPFR_RNDN);
       ci[i] = mpfr_get_d(mn, MPFR_RNDN);
+
+      (void)printf("%s,", pvn_dtoa(s, ar[i]));
+      (void)printf("%s,", pvn_dtoa(s, ai[i]));
+      (void)printf("%s,", pvn_dtoa(s, br[i]));
+      (void)printf("%s,", pvn_dtoa(s, bi[i]));
+      (void)printf("%s,", pvn_dtoa(s, cr[i]));
+      (void)printf("%s\n", pvn_dtoa(s, ci[i]));
 
       e[0] = __builtin_fmin(e[0], ar[i]);
       E[0] = __builtin_fmax(E[0], ar[i]);
