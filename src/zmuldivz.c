@@ -87,63 +87,65 @@ int main(int argc, char *argv[])
     T[1] += (f = pvn_time_proc_ns() - f);
     const double g = (DBL_EPSILON * 0.5);
     for (size_t i = 0u; i < n; ++i) {
-      (void)mpc_set_d_d(my, ar[i], ai[i], MPC_RNDNN);
-      (void)mpc_set_d_d(mz, br[i], bi[i], MPC_RNDNN);
+      if (isfinite(cr[i]) && isfinite(ci[i]) && isfinite(dr[i]) && isfinite(di[i])) {
+        (void)mpc_set_d_d(my, ar[i], ai[i], MPC_RNDNN);
+        (void)mpc_set_d_d(mz, br[i], bi[i], MPC_RNDNN);
 
-      (void)mpc_set_d_d(mw, cr[i], ci[i], MPC_RNDNN);
-      (void)mpc_mul(mx, my, mz, MPC_RNDNN);
+        (void)mpc_set_d_d(mw, cr[i], ci[i], MPC_RNDNN);
+        (void)mpc_mul(mx, my, mz, MPC_RNDNN);
 
-      (void)mpc_sub(mw, mx, mw, MPC_RNDNN);
-      (void)mpfr_abs(mn, mpc_realref(mw), MPFR_RNDN);
-      (void)mpfr_abs(md, mpc_realref(mx), MPFR_RNDN);
-      (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
-      (void)mpfr_div(mn, mn, md, MPFR_RNDN);
-      ar[i] = mpfr_get_d(mn, MPFR_RNDN);
-      (void)mpfr_abs(mn, mpc_imagref(mw), MPFR_RNDN);
-      (void)mpfr_abs(md, mpc_imagref(mx), MPFR_RNDN);
-      (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
-      (void)mpfr_div(mn, mn, md, MPFR_RNDN);
-      ai[i] = mpfr_get_d(mn, MPFR_RNDN);
+        (void)mpc_sub(mw, mx, mw, MPC_RNDNN);
+        (void)mpfr_abs(mn, mpc_realref(mw), MPFR_RNDN);
+        (void)mpfr_abs(md, mpc_realref(mx), MPFR_RNDN);
+        (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
+        (void)mpfr_div(mn, mn, md, MPFR_RNDN);
+        ar[i] = mpfr_get_d(mn, MPFR_RNDN);
+        (void)mpfr_abs(mn, mpc_imagref(mw), MPFR_RNDN);
+        (void)mpfr_abs(md, mpc_imagref(mx), MPFR_RNDN);
+        (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
+        (void)mpfr_div(mn, mn, md, MPFR_RNDN);
+        ai[i] = mpfr_get_d(mn, MPFR_RNDN);
 
-      (void)mpc_abs(mn, mw, MPC_RNDNN);
-      (void)mpc_abs(md, mx, MPC_RNDNN);
-      (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
-      (void)mpfr_div(mn, mn, md, MPFR_RNDN);
-      cr[i] = mpfr_get_d(mn, MPFR_RNDN);
+        (void)mpc_abs(mn, mw, MPC_RNDNN);
+        (void)mpc_abs(md, mx, MPC_RNDNN);
+        (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
+        (void)mpfr_div(mn, mn, md, MPFR_RNDN);
+        cr[i] = mpfr_get_d(mn, MPFR_RNDN);
 
-      (void)mpc_set_d_d(mw, dr[i], di[i], MPC_RNDNN);
-      (void)mpc_div(mx, my, mz, MPC_RNDNN);
+        (void)mpc_set_d_d(mw, dr[i], di[i], MPC_RNDNN);
+        (void)mpc_div(mx, my, mz, MPC_RNDNN);
 
-      (void)mpc_sub(mw, mx, mw, MPC_RNDNN);
-      (void)mpfr_abs(mn, mpc_realref(mw), MPFR_RNDN);
-      (void)mpfr_abs(md, mpc_realref(mx), MPFR_RNDN);
-      (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
-      (void)mpfr_div(mn, mn, md, MPFR_RNDN);
-      br[i] = mpfr_get_d(mn, MPFR_RNDN);
-      (void)mpfr_abs(mn, mpc_imagref(mw), MPFR_RNDN);
-      (void)mpfr_abs(md, mpc_imagref(mx), MPFR_RNDN);
-      (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
-      (void)mpfr_div(mn, mn, md, MPFR_RNDN);
-      bi[i] = mpfr_get_d(mn, MPFR_RNDN);
+        (void)mpc_sub(mw, mx, mw, MPC_RNDNN);
+        (void)mpfr_abs(mn, mpc_realref(mw), MPFR_RNDN);
+        (void)mpfr_abs(md, mpc_realref(mx), MPFR_RNDN);
+        (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
+        (void)mpfr_div(mn, mn, md, MPFR_RNDN);
+        br[i] = mpfr_get_d(mn, MPFR_RNDN);
+        (void)mpfr_abs(mn, mpc_imagref(mw), MPFR_RNDN);
+        (void)mpfr_abs(md, mpc_imagref(mx), MPFR_RNDN);
+        (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
+        (void)mpfr_div(mn, mn, md, MPFR_RNDN);
+        bi[i] = mpfr_get_d(mn, MPFR_RNDN);
 
-      (void)mpc_abs(mn, mw, MPC_RNDNN);
-      (void)mpc_abs(md, mx, MPC_RNDNN);
-      (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
-      (void)mpfr_div(mn, mn, md, MPFR_RNDN);
-      ci[i] = mpfr_get_d(mn, MPFR_RNDN);
+        (void)mpc_abs(mn, mw, MPC_RNDNN);
+        (void)mpc_abs(md, mx, MPC_RNDNN);
+        (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
+        (void)mpfr_div(mn, mn, md, MPFR_RNDN);
+        ci[i] = mpfr_get_d(mn, MPFR_RNDN);
 
-      e[0] = __builtin_fmin(e[0], ar[i]);
-      E[0] = __builtin_fmax(E[0], ar[i]);
-      e[1] = __builtin_fmin(e[1], ai[i]);
-      E[1] = __builtin_fmax(E[1], ai[i]);
-      e[2] = __builtin_fmin(e[2], br[i]);
-      E[2] = __builtin_fmax(E[2], br[i]);
-      e[3] = __builtin_fmin(e[3], bi[i]);
-      E[3] = __builtin_fmax(E[3], bi[i]);
-      e[4] = __builtin_fmin(e[4], cr[i]);
-      E[4] = __builtin_fmax(E[4], cr[i]);
-      e[5] = __builtin_fmin(e[5], ci[i]);
-      E[5] = __builtin_fmax(E[5], ci[i]);
+        e[0] = __builtin_fmin(e[0], ar[i]);
+        E[0] = __builtin_fmax(E[0], ar[i]);
+        e[1] = __builtin_fmin(e[1], ai[i]);
+        E[1] = __builtin_fmax(E[1], ai[i]);
+        e[2] = __builtin_fmin(e[2], br[i]);
+        E[2] = __builtin_fmax(E[2], br[i]);
+        e[3] = __builtin_fmin(e[3], bi[i]);
+        E[3] = __builtin_fmax(E[3], bi[i]);
+        e[4] = __builtin_fmin(e[4], cr[i]);
+        E[4] = __builtin_fmax(E[4], cr[i]);
+        e[5] = __builtin_fmin(e[5], ci[i]);
+        E[5] = __builtin_fmax(E[5], ci[i]);
+      }
     }
   }
   (void)printf("%lld, %lld,", T[0], T[1]);
