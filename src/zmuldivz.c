@@ -63,16 +63,16 @@ int main(int argc, char *argv[])
   for (size_t j = 0u; j < m; ++j) {
     for (size_t i = 0u; i < n; ++i) {
       do {
-        ar[i] = PVN_FABI(pvn_ran,PVN_RAN)(&u);
+        ar[i] = PVN_FABI(pvn_ran_f,PVN_RAN_F)(&u);
       } while (!__builtin_isfinite(ar[i]));
       do {
-        ai[i] = PVN_FABI(pvn_ran,PVN_RAN)(&u);
+        ai[i] = PVN_FABI(pvn_ran_f,PVN_RAN_F)(&u);
       } while (!__builtin_isfinite(ai[i]));
       do {
-        br[i] = PVN_FABI(pvn_ran,PVN_RAN)(&u);
+        br[i] = PVN_FABI(pvn_ran_f,PVN_RAN_F)(&u);
       } while (!__builtin_isfinite(br[i]));
       do {
-        bi[i] = PVN_FABI(pvn_ran,PVN_RAN)(&u);
+        bi[i] = PVN_FABI(pvn_ran_f,PVN_RAN_F)(&u);
       } while (!__builtin_isfinite(bi[i]));
     }
     long long f = pvn_time_proc_ns();
