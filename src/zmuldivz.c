@@ -59,8 +59,6 @@ int main(int argc, char *argv[])
   u = PVN_FABI(pvn_ran_open,PVN_RAN_OPEN)();
   char s[26] = { '\0' };
   m = ((argc >= 4) ? pvn_atoz(argv[3]) : (size_t)1u);
-  (void)printf("%10zu, ", (n * m));
-  (void)fflush(stdout);
   long long T[2] = { 0ll, 0ll };
   for (size_t j = 0u; j < m; ++j) {
     for (size_t i = 0u; i < n; ++i) {
@@ -86,7 +84,6 @@ int main(int argc, char *argv[])
       PVN_FABI(pvn_zdivz,PVN_ZDIVZ)((dr + i), (di + i), (ar + i), (ai + i), (br + i), (bi + i));
     T[1] += (f = pvn_time_proc_ns() - f);
     const double g = (DBL_EPSILON * 0.5);
-    (void)printf("\n");
     for (size_t i = 0u; i < n; ++i) {
       (void)printf("(%s,", pvn_dtoa(s, ar[i]));
       (void)printf("%s) ", pvn_dtoa(s, ai[i]));
@@ -147,7 +144,7 @@ int main(int argc, char *argv[])
       (void)printf("%s,", pvn_dtoa(s, br[i]));
       (void)printf("%s,", pvn_dtoa(s, bi[i]));
       (void)printf("%s,", pvn_dtoa(s, cr[i]));
-      (void)printf("%s\n", pvn_dtoa(s, ci[i]));
+      (void)printf("%s\n\n", pvn_dtoa(s, ci[i]));
 
       e[0] = __builtin_fmin(e[0], ar[i]);
       E[0] = __builtin_fmax(E[0], ar[i]);
@@ -163,7 +160,7 @@ int main(int argc, char *argv[])
       E[5] = __builtin_fmax(E[5], ci[i]);
     }
   }
-  (void)printf("%lld, %lld,", T[0], T[1]);
+  (void)printf("%10zu, %lld, %lld,", (n * m), T[0], T[1]);
   (void)printf("%s,", pvn_dtoa(s, E[0]));
   (void)printf("%s,", pvn_dtoa(s, E[1]));
   (void)printf("%s,", pvn_dtoa(s, E[2]));
