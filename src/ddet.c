@@ -52,38 +52,38 @@ int main(int argc, char *argv[])
   }
   double *a = (double*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&a, PVN_VECLEN, m));
-  (void)memset(a, 0, m);
+  PVN_SYSP_CALL(memset(a, 0, m));
   double *b = (double*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&b, PVN_VECLEN, m));
-  (void)memset(b, 0, m);
+  PVN_SYSP_CALL(memset(b, 0, m));
   double *c = (double*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&c, PVN_VECLEN, m));
-  (void)memset(c, 0, m);
+  PVN_SYSP_CALL(memset(c, 0, m));
   double *d = (double*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&d, PVN_VECLEN, m));
-  (void)memset(d, 0, m);
+  PVN_SYSP_CALL(memset(d, 0, m));
   double *r = (double*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&r, PVN_VECLEN, m));
-  (void)memset(r, 0, m);
+  PVN_SYSP_CALL(memset(r, 0, m));
   double *x = (double*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&x, PVN_VECLEN, m));
-  (void)memset(x, 0, m);
+  PVN_SYSP_CALL(memset(x, 0, m));
   double *h = (double*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&h, PVN_VECLEN, m));
-  (void)memset(h, 0, m);
+  PVN_SYSP_CALL(memset(h, 0, m));
 #ifdef __AVX512F__
   double *z = (double*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&z, PVN_VECLEN, m));
-  (void)memset(z, 0, m);
+  PVN_SYSP_CALL(memset(z, 0, m));
 #endif /* __AVX512F__ */
   m = n * sizeof(int);
   int *t = (int*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&t, PVN_VECLEN, m));
-  (void)memset(t, 0, m);
+  PVN_SYSP_CALL(memset(t, 0, m));
 #ifdef __AVX512F__
   int *v = (int*)NULL;
   PVN_SYSI_CALL(u = posix_memalign((void**)&v, PVN_VECLEN, m));
-  (void)memset(v, 0, m);
+  PVN_SYSP_CALL(memset(v, 0, m));
 #endif /* __AVX512F__ */
   double e = __builtin_inf(), E = 0.0;
   mpfr_t ma, mb, mc, md, mr, mx;

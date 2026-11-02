@@ -9,7 +9,7 @@ CC:=$(PVN_CC)
 CFLAGS:=$(PVN_CFLAGS) $(PVN_CPPFLAGS)
 LDFLAGS:=$(PVN_LDFLAGS) $(PVN_LIBS)
 
-SRCS:=afmt.c bf.c ddet.c sdet.c
+SRCS:=afmt.c bf.c ddet.c sdet.c zmuldivz.c
 EXES:=$(SRCS:.c=.exe)
 
 .PHONY: all help clean
