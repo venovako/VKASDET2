@@ -85,6 +85,7 @@ int main(int argc, char *argv[])
     T[1] += (f = pvn_time_proc_ns() - f);
     const double g = (DBL_EPSILON * 0.5);
     for (size_t i = 0u; i < n; ++i) {
+#ifndef NDEBUG
       (void)printf("(%s,", pvn_dtoa(s, ar[i]));
       (void)printf("%s) ", pvn_dtoa(s, ai[i]));
       (void)printf("(%s,", pvn_dtoa(s, br[i]));
@@ -93,7 +94,7 @@ int main(int argc, char *argv[])
       (void)printf("%s) ", pvn_dtoa(s, ci[i]));
       (void)printf("(%s,", pvn_dtoa(s, dr[i]));
       (void)printf("%s)\n", pvn_dtoa(s, di[i]));
-
+#endif /* !NDEBUG */
       (void)mpc_set_d_d(my, ar[i], ai[i], MPC_RNDNN);
       (void)mpc_set_d_d(mz, br[i], bi[i], MPC_RNDNN);
 
@@ -138,14 +139,14 @@ int main(int argc, char *argv[])
       (void)mpfr_mul_d(md, md, g, MPFR_RNDN);
       (void)mpfr_div(mn, mn, md, MPFR_RNDN);
       ci[i] = mpfr_get_d(mn, MPFR_RNDN);
-
+#ifndef NDEBUG
       (void)printf("%s,", pvn_dtoa(s, ar[i]));
       (void)printf("%s,", pvn_dtoa(s, ai[i]));
       (void)printf("%s,", pvn_dtoa(s, br[i]));
       (void)printf("%s,", pvn_dtoa(s, bi[i]));
       (void)printf("%s,", pvn_dtoa(s, cr[i]));
       (void)printf("%s\n\n", pvn_dtoa(s, ci[i]));
-
+#endif /* !NDEBUG */
       e[0] = __builtin_fmin(e[0], ar[i]);
       E[0] = __builtin_fmax(E[0], ar[i]);
       e[1] = __builtin_fmin(e[1], ai[i]);
