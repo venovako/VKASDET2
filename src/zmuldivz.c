@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
       PVN_FABI(pvn_zmulz,PVN_ZMULZ)((cr + i), (ci + i), (ar + i), (ai + i), (br + i), (bi + i));
 #else /* !__AVX512F__ */
     for (size_t i = 0u; i < n; ++i)
-      pvn_zmul((cr + i), (ci + i), (ar + i), (ai + i), (br + i), (bi + i));
+      pvn_zmul((cr + i), (ci + i), ar[i], ai[i], br[i], bi[i]);
 #endif /* ?__AVX512F__ */
     T[0] += (f = pvn_time_proc_ns() - f);
     f = pvn_time_proc_ns();
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
       PVN_FABI(pvn_zdivz,PVN_ZDIVZ)((dr + i), (di + i), (ar + i), (ai + i), (br + i), (bi + i));
 #else /* !__AVX512F__ */
     for (size_t i = 0u; i < n; ++i)
-      pvn_zdiv((dr + i), (di + i), (ar + i), (ai + i), (br + i), (bi + i));
+      pvn_zdiv((dr + i), (di + i), ar[i], ai[i], br[i], bi[i]);
 #endif /* ?__AVX512F__ */
     T[1] += (f = pvn_time_proc_ns() - f);
     const double g = (DBL_EPSILON * 0.5);
