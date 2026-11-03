@@ -9,10 +9,14 @@ int main(int argc, char *argv[])
   size_t n = pvn_atoz(argv[1]);
   if (!n)
     return EXIT_SUCCESS;
-  size_t m = (n & 7u);
+  size_t m =
+#ifdef __AVX512F__
+    (n & 7u);
   if (m)
     n += (8u - m);
-  m = n * sizeof(double);
+  m =
+#endif /* __AVX512F__ */
+  n * sizeof(double);
   mpfr_rnd_t rnd = MPFR_RNDN;
   mpfr_exp_t emin = __MPFR_EXP_INVALID, emax = __MPFR_EXP_INVALID;
   mpfr_prec_t prec = ((argc >= 3) ? atol(argv[2]) : 113l);
@@ -76,12 +80,22 @@ int main(int argc, char *argv[])
       } while (!__builtin_isfinite(bi[i]));
     }
     long long f = pvn_time_proc_ns();
+#ifdef __AVX512F__
     for (size_t i = 0u; i < n; i += 8u)
       PVN_FABI(pvn_zmulz,PVN_ZMULZ)((cr + i), (ci + i), (ar + i), (ai + i), (br + i), (bi + i));
+#else /* !__AVX512F__ */
+    for (size_t i = 0u; i < n; ++i)
+      pvn_zmul((cr + i), (ci + i), (ar + i), (ai + i), (br + i), (bi + i));
+#endif /* ?__AVX512F__ */
     T[0] += (f = pvn_time_proc_ns() - f);
     f = pvn_time_proc_ns();
+#ifdef __AVX512F__
     for (size_t i = 0u; i < n; i += 8u)
       PVN_FABI(pvn_zdivz,PVN_ZDIVZ)((dr + i), (di + i), (ar + i), (ai + i), (br + i), (bi + i));
+#else /* !__AVX512F__ */
+    for (size_t i = 0u; i < n; ++i)
+      pvn_zdiv((dr + i), (di + i), (ar + i), (ai + i), (br + i), (bi + i));
+#endif /* ?__AVX512F__ */
     T[1] += (f = pvn_time_proc_ns() - f);
     const double g = (DBL_EPSILON * 0.5);
     for (size_t i = 0u; i < n; ++i) {
