@@ -1,0 +1,2 @@
+"AVG∑MAX", "N", "sdetnsAVG", "infs∑", "SDETnsAVG", "INFS∑", "MAXRELERRepsMAX", "ydetfnsAVG", "zdetfnsAVG", "ZDETFnsAVG"
+"AVG∑MAX", "N", "ddetnsAVG", "infs∑", "DDETnsAVG", "INFS∑", "MAXRELERRepsMAX", "ydetnsAVG", "zdetnsAVG", "ZDETnsAVG"
