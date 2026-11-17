@@ -4,3 +4,6 @@ infs∑ / INFS∑ = 1.000041440
 INFS∑ / infs∑ = 0.999958561
 
 "AVG∑MAX", "N", "ddetnsAVG", "infs∑", "DDETnsAVG", "INFS∑", "MAXRELERRepsMAX", "ydetnsAVG", "zdetnsAVG", "ZDETnsAVG"
+0, 1073741824, 0, 23430379555, 0, 23430364196, 1.99765529759248506, 0, 0, 0
+infs∑ / INFS∑ = 1.000000655
+INFS∑ / infs∑ = 0.999999344
