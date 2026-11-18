@@ -1,4 +1,4 @@
-∑ is over all conducted tests up to this time.
+∑ is over all conducted tests up to this time (3*31+11=104 runs in total).
 
 "AVG∑MAX", "N", "sdetnsAVG", "infs∑", "SDETnsAVG", "INFS∑", "MAXRELERRepsMAX", "ydetfnsAVG", "zdetfnsAVG", "ZDETFnsAVG"
 0, 1073741824, 0, 31486744567, 0, 31485439907, 1.998400331, 0, 0, 0
