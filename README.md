@@ -6,8 +6,9 @@ Vectorizable Kahan's Algorithm with Scaling for Determinants of order two
 Requires [libpvn](https://github.com/venovako/libpvn) with:
 * [GMP](https://gmplib.org),
 * [MPFR](https://mpfr.org), and
-* [MPC](https://www.multiprecision.org)
-support enabled on an `AVX512F`-compatible system, using either `icx` or `gcc`.
+* [MPC](https://www.multiprecision.org) libraries.
+
+An `AVX512F`-compatible system is required for the full functionality, using either `icx` or `gcc`.
 
 See the examples in `src/build-icx.sh` and `src/build-gcc.sh`.
 
