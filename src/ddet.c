@@ -100,6 +100,7 @@ int main(int argc, char *argv[])
   (void)fflush(stdout);
   unsigned long long T[5] = { 0ull, 0ull, 0ull, 0ull, 0ull };
   unsigned K[4] = { 0u, 0u, 0u, 0u };
+  unsigned long long aux = 0ull;
   for (size_t j = 0u; j < m; ++j) {
     for (size_t i = 0u; i < n; ++i) {
       do {
@@ -115,7 +116,7 @@ int main(int argc, char *argv[])
         d[i] = PVN_FABI(pvn_ran,PVN_RAN)(&u);
       } while (!__builtin_isfinite(d[i]));
     }
-    unsigned long long aux = 0ull, f = pvn_rdtsc_beg((unsigned*)&aux);
+    unsigned long long f = pvn_rdtsc_beg((unsigned*)&aux);
     for (size_t i = 0u; i < n; ++i)
       r[i] = fn1_ddet(a[i], b[i], c[i], d[i]);
     f = pvn_rdtsc_end((unsigned*)&aux) - f;

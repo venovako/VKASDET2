@@ -64,6 +64,7 @@ int main(int argc, char *argv[])
   char s[26] = { '\0' };
   m = ((argc >= 4) ? pvn_atoz(argv[3]) : (size_t)1u);
   unsigned long long T[2] = { 0ull, 0ull };
+  unsigned long long aux = 0ull;
   for (size_t j = 0u; j < m; ++j) {
     for (size_t i = 0u; i < n; ++i) {
       do {
@@ -79,7 +80,7 @@ int main(int argc, char *argv[])
         bi[i] = PVN_FABI(pvn_ran_d,PVN_RAN_D)(&u);
       } while (!__builtin_isfinite(bi[i]));
     }
-    unsigned long long aux = 0ull, f = pvn_rdtsc_beg((unsigned*)&aux);
+    unsigned long long f = pvn_rdtsc_beg((unsigned*)&aux);
 #ifdef __AVX512F__
     for (size_t i = 0u; i < n; i += 8u)
       PVN_FABI(pvn_zmulz,PVN_ZMULZ)((cr + i), (ci + i), (ar + i), (ai + i), (br + i), (bi + i));
