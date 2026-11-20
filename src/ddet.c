@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
       (void)mpfr_div(mx, mx, mr, MPFR_RNDN);
       (void)mpfr_abs(mx, mx, MPFR_RNDN);
       h[i] = mpfr_get_d(mx, MPFR_RNDN);
-      if (!(h[i] < 3.0)) {
+      if (!(h[i] < 2.0)) {
         (void)fprintf(stderr, "a=%s %# a\n", pvn_dtoa(s, a[i]), a[i]);
         (void)fprintf(stderr, "b=%s %# a\n", pvn_dtoa(s, b[i]), b[i]);
         (void)fprintf(stderr, "c=%s %# a\n", pvn_dtoa(s, c[i]), c[i]);

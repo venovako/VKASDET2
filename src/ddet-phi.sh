@@ -1,5 +1,6 @@
 #!/bin/bash
 # Usage: ./ddet-phi.sh RUNS
+export TSC_FREQ_HZ=1296996000
 echo '"RUN", "N", "ddets", "infs", "DDETs", "INFS", "MINRELERReps", "MAXRELERReps", "ydets", "zdets", "ZDETs", "NZERO", "ERR"' > ddet-phi.csv 2> ddet-phi.err
 for ((R=1;R<=$1;++R))
 do
