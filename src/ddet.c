@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
   m = ((argc >= 4) ? pvn_atoz(argv[3]) : (size_t)1u);
   (void)printf("%10zu, ", (n * m));
   (void)fflush(stdout);
-  long long T[5] = { 0ll, 0ll, 0ll, 0ll, 0ll };
+  unsigned long long T[5] = { 0ull, 0ull, 0ull, 0ull, 0ull };
   unsigned K[4] = { 0u, 0u, 0u, 0u };
   for (size_t j = 0u; j < m; ++j) {
     for (size_t i = 0u; i < n; ++i) {
@@ -115,18 +115,18 @@ int main(int argc, char *argv[])
         d[i] = PVN_FABI(pvn_ran,PVN_RAN)(&u);
       } while (!__builtin_isfinite(d[i]));
     }
-    long long f = pvn_time_mono_ns();
+    unsigned long long aux = 0ull, f = pvn_rdtsc_beg((unsigned*)&aux);
     for (size_t i = 0u; i < n; ++i)
       r[i] = fn1_ddet(a[i], b[i], c[i], d[i]);
-    f = pvn_time_mono_ns() - f;
+    f = pvn_rdtsc_end((unsigned*)&aux) - f;
     T[0] += f;
     for (size_t i = 0u; i < n; ++i)
       if (!__builtin_isfinite(r[i]))
         ++(K[0]);
-    f = pvn_time_mono_ns();
+    f = pvn_rdtsc_beg((unsigned*)&aux);
     for (size_t i = 0u; i < n; ++i)
       r[i] = PVN_FABI(pvn_ddet,PVN_DDET)((a + i), (b + i), (c + i), (d + i), (x + i), (t + i));
-    f = pvn_time_mono_ns() - f;
+    f = pvn_rdtsc_end((unsigned*)&aux) - f;
     T[1] += f;
     for (size_t i = 0u; i < n; ++i)
       if (!__builtin_isfinite(r[i]))
@@ -162,20 +162,20 @@ int main(int argc, char *argv[])
       }
     }
 #ifdef __AVX512F__
-    f = pvn_time_mono_ns();
+    f = pvn_rdtsc_beg((unsigned*)&aux);
     for (size_t i = 0u; i < n; i += 4u)
       fn4_ddet((a + i), (b + i), (c + i), (d + i), (h + i));
-    f = pvn_time_mono_ns() - f;
+    f = pvn_rdtsc_end((unsigned*)&aux) - f;
     T[2] += f;
-    f = pvn_time_mono_ns();
+    f = pvn_rdtsc_beg((unsigned*)&aux);
     for (size_t i = 0u; i < n; i += 8u)
       fn8_ddet((a + i), (b + i), (c + i), (d + i), (h + i));
-    f = pvn_time_mono_ns() - f;
+    f = pvn_rdtsc_end((unsigned*)&aux) - f;
     T[3] += f;
-    f = pvn_time_mono_ns();
+    f = pvn_rdtsc_beg((unsigned*)&aux);
     for (size_t i = 0u; i < n; i += 8u)
       K[2] += (unsigned)PVN_FABI(pvn_zdet,PVN_ZDET)((a + i), (b + i), (c + i), (d + i), (z + i), (v + i), (h + i));
-    f = pvn_time_mono_ns() - f;
+    f = pvn_rdtsc_end((unsigned*)&aux) - f;
     T[4] += f;
     for (size_t i = 0u; i < n; ++i) {
       if (x[i] != z[i]) {
@@ -198,10 +198,12 @@ int main(int argc, char *argv[])
     }
 #endif /* __AVX512F__ */
   }
-  (void)printf("%lld, %u, %lld, %u,", T[0], K[0], T[1], K[1]);
+  aux = pvn_tsc_get_freq_Hz(&aux);
+  (void)fprintf(stderr, "CPU frequency = %llu Hz\n", aux);
+  (void)printf("%#.9LF, %u, %#.9LF, %u,", pvn_tsc_sec(aux, T[0]), K[0], pvn_tsc_sec(aux, T[1]), K[1]);
   (void)printf("%s,", pvn_dtoa(s, e));
   (void)printf("%s, ", pvn_dtoa(s, E));
-  (void)printf("%lld, %lld, %lld, %u, %u\n", T[2], T[3], T[4], K[2], K[3]);
+  (void)printf("%#.9LF, %#.9LF, %#.9LF, %u, %u\n", pvn_tsc_sec(aux, T[2]), pvn_tsc_sec(aux, T[3]), pvn_tsc_sec(aux, T[4]), K[2], K[3]);
   (void)fflush(stdout);
   u = PVN_FABI(pvn_ran_close,PVN_RAN_CLOSE)(&u);
   mpfr_clear(mx);
