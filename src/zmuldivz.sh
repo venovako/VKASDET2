@@ -1,5 +1,6 @@
 #!/bin/bash
 # Usage: ./zmuldivz.sh RUNS
+export TSC_FREQ_HZ=2695948000
 echo '"RUN", "N", "ZMULs", "ZDIVs", "REprodREeps", "REprodIMeps", "REquotREeps", "REquotIMeps", "REPRODeps", "REQUOTeps"' > zmuldivz.csv 2> zmuldivz.err
 for ((R=1;R<=$1;++R))
 do
