@@ -1,6 +1,6 @@
 #!/bin/bash
 # Usage: ./sdet.sh RUNS
-export TSC_FREQ_HZ=2695948000
+export TSC_FREQ_HZ=2695950000
 echo '"RUN", "N", "sdets", "infs", "SDETs", "INFS", "MINRELERReps", "MAXRELERReps", "ydetfs", "zdetfs", "ZDETFs", "NZERO", "ERR"' > sdet.csv 2> sdet.err
 for ((R=1;R<=$1;++R))
 do
