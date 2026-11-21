@@ -1,6 +1,5 @@
 #!/bin/bash
 # Usage: ./zmuldivz.sh
-export TSC_FREQ_HZ=2695950000
 echo '"RUN", "N", "ZMULs", "ZDIVs", "REprodREeps", "REprodIMeps", "REquotREeps", "REquotIMeps", "REPRODeps", "REQUOTeps"' > zmuldivz.csv 2> zmuldivz.err
 echo -n " 1, " >> zmuldivz0.csv
 ./zmuldivz.exe 67108864 256 16 >> zmuldivz0.csv 2>> zmuldivz0.err &
