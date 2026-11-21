@@ -2,11 +2,11 @@
 
 /* noinline to account for the function calls, just as with PVN_SDET and PVN_ZDETF */
 #ifndef MY_INLINE
-#if (defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER))
+#ifdef __clang__
 #define MY_INLINE __attribute__((noinline))
 #else /* GCC */
 #define MY_INLINE __attribute__((noipa))
-#endif /* ?Intel */
+#endif /* ?Clang */
 #endif /* !MY_INLINE */
 
 MY_INLINE float fn1_sdet(const float a, const float b, const float c, const float d)
