@@ -1,0 +1,30 @@
+Architecture:                x86_64
+  CPU op-mode(s):            32-bit, 64-bit
+  Address sizes:             46 bits physical, 48 bits virtual
+  Byte Order:                Little Endian
+CPU(s):                      64
+  On-line CPU(s) list:       0-63
+Vendor ID:                   GenuineIntel
+  Model name:                Intel(R) Xeon Phi(TM) CPU 7210 @ 1.30GHz
+    CPU family:              6
+    Model:                   87
+    Thread(s) per core:      1
+    Core(s) per socket:      64
+    Socket(s):               1
+    Stepping:                1
+    CPU(s) scaling MHz:      81%
+    CPU max MHz:             1300.0000
+    CPU min MHz:             1000.0000
+    BogoMIPS:                2593.99
+    Flags:                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall n
+                             x pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 
+                             monitor ds_cpl est tm2 ssse3 fma cx16 xtpr pdcm sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand la
+                             hf_lm abm 3dnowprefetch ring3mwait cpuid_fault epb pti ibrs ibpb fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms avx512f rdseed adx 
+                             avx512pf avx512er avx512cd xsaveopt dtherm arat pln pts
+Caches (sum of all):         
+  L1d:                       2 MiB (64 instances)
+  L1i:                       2 MiB (64 instances)
+  L2:                        32 MiB (32 instances)
+NUMA:                        
+  NUMA node(s):              1
+  NUMA node0 CPU(s):         0-63
