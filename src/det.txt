@@ -1,9 +1,11 @@
-∑ is over 408 runs (TODO: add 20 more for zmuldivz-phi.csv).
+∑ is over ??? single precision runs
 
 "AVG∑MAX", "N", "sdetsAVG", "infs∑", "SDETsAVG", "INFS∑", "MAXRELERRepsMAX", "ydetfsAVG", "zdetfsAVG", "ZDETFsAVG"
 0, 1073741824, 
 infs∑ / INFS∑ = 
 INFS∑ / infs∑ = 
+
+∑ is over ??? double precision runs
 
 "AVG∑MAX", "N", "ddetsAVG", "infs∑", "DDETsAVG", "INFS∑", "MAXRELERRepsMAX", "ydetsAVG", "zdetsAVG", "ZDETsAVG"
 0, 1073741824, 
