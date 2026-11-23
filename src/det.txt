@@ -1,11 +1,11 @@
-∑ is over all conducted tests up to this time (3*31+11=104 runs in total).
+∑ is over 408 runs (TODO: add 20 more for zmuldivz-phi.csv).
 
-"AVG∑MAX", "N", "sdetnsAVG", "infs∑", "SDETnsAVG", "INFS∑", "MAXRELERRepsMAX", "ydetfnsAVG", "zdetfnsAVG", "ZDETFnsAVG"
-0, 1073741824, 0, 31486744567, 0, 31485439907, 1.998400331, 0, 0, 0
-infs∑ / INFS∑ = 1.00004143693
-INFS∑ / infs∑ = 0.999958564786
+"AVG∑MAX", "N", "sdetsAVG", "infs∑", "SDETsAVG", "INFS∑", "MAXRELERRepsMAX", "ydetfsAVG", "zdetfsAVG", "ZDETFsAVG"
+0, 1073741824, 
+infs∑ / INFS∑ = 
+INFS∑ / infs∑ = 
 
-"AVG∑MAX", "N", "ddetnsAVG", "infs∑", "DDETnsAVG", "INFS∑", "MAXRELERRepsMAX", "ydetnsAVG", "zdetnsAVG", "ZDETnsAVG"
-0, 1073741824, 0, 31240580440, 0, 31240560069, 1.99803880979652115, 0, 0, 0
-infs∑ / INFS∑ = 1.00000065207
-INFS∑ / infs∑ = 0.999999347931
+"AVG∑MAX", "N", "ddetsAVG", "infs∑", "DDETsAVG", "INFS∑", "MAXRELERRepsMAX", "ydetsAVG", "zdetsAVG", "ZDETsAVG"
+0, 1073741824, 
+infs∑ / INFS∑ = 
+INFS∑ / infs∑ = 
