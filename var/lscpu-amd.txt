@@ -30,3 +30,5 @@ Caches (sum of all):
 NUMA:                        
   NUMA node(s):              1
   NUMA node0 CPU(s):         0,1
+
+AOCC 6.0 (clang 21.1.8)

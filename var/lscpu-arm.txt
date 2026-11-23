@@ -24,3 +24,5 @@ Caches (sum of all):
 NUMA:                        
   NUMA node(s):              1
   NUMA node0 CPU(s):         0,1
+
+gcc 15.2.1
